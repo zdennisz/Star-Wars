@@ -15,18 +15,18 @@ const BarChart = ({ planetInformation }) => {
 		<svg
 			className='chart'
 			width='420'
-			height='350'
+			height='550'
 			aria-labelledby='title desc'
 			role='img'
 		>
 			{normalizedData.map((data, index) => (
 				<SingleBar
-					// barAmount={data.amount}
+					barAmount={data.pop}
 					// barHeight={data.barHeight}
-					// barTitle={data.barTitle}
+					barTitle={data.name}
 					// xOffset={}
 					key={index}
-					barHeight={data}
+					barHeight={data.pop}
 					barCoorY={index === 0 ? 0 : 20 * index + 20}
 					barIndex={index}
 				/>

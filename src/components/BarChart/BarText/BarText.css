@@ -1,3 +1,4 @@
-.text {
+.text:hover {
 	color: black;
+	text-anchor: middle;
 }

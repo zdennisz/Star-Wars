@@ -1,8 +1,8 @@
 import React from "react";
 import "./BarText.css";
-const BarText = ({ xOffset, yOffset, text }) => {
+const BarText = ({ barIndex, barHeight, text }) => {
 	return (
-		<text x={xOffset} y={yOffset} dy='.35em'>
+		<text className='text' x={barIndex * 34 + 10} y={380} dy='.25em'>
 			{text}
 		</text>
 	);

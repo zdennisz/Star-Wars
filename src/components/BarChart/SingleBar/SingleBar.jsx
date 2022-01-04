@@ -1,10 +1,11 @@
 import React from "react";
 import BarText from "../BarText/BarText";
 import Bar from "../Bar/Bar";
+import BarAmount from "../BarAmount/BarAmount";
 import "./SingleBar.css";
 const SingleBar = ({
-	// barAmount,
-	// barTitle,
+	barAmount,
+	barTitle,
 	barHeight,
 	// xOffset,
 	// yOffset,
@@ -13,9 +14,9 @@ const SingleBar = ({
 }) => {
 	return (
 		<g className='bar'>
-			{/* <BarText xOffset={xOffset} yOffset={yOffset} text={barTitle} /> */}
+			<BarAmount barIndex={barIndex} barHeight={barHeight} text={barAmount} />
 			<Bar barHeight={barHeight} y={barCoorY} barIndex={barIndex} />
-			{/* <BarText xOffset={xOffset + 30} yOffset={yOffset + 30} text={barAmount} /> */}
+			<BarText barIndex={barIndex} barHeight={barHeight} text={barTitle} />
 		</g>
 	);
 };
