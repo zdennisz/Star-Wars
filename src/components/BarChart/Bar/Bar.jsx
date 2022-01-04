@@ -5,7 +5,7 @@ const Bar = ({ barHeight, y, barIndex }) => {
 		<rect
 			width='40'
 			height={barHeight}
-			x={barIndex * 34}
+			x={barIndex * 60}
 			y={350 - barHeight}
 		></rect>
 	);

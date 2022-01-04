@@ -5,7 +5,7 @@ const BarAmount = ({ barIndex, text, barHeight }) => {
 	return (
 		<text
 			className='text'
-			x={barIndex * 34 + 10}
+			x={barIndex * 60 + 20}
 			y={350 - barHeight - 20}
 			dy='.15em'
 		>
