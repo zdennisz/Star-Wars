@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import BarChart from "./components/BarChart/BarChart/BarChart";
 function App() {
+	// TODO -Add real data fetching and sorting
 	const dummyData = [
 		{ name: "Tatooine", pop: 200000 },
 		{ name: "Alderaan", pop: 2000000000 },
