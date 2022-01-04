@@ -22,11 +22,9 @@ const BarChart = ({ planetInformation }) => {
 			{normalizedData.map((data, index) => (
 				<SingleBar
 					barAmount={data.pop}
-					// barHeight={data.barHeight}
 					barTitle={data.name}
-					// xOffset={}
 					key={index}
-					barHeight={data.pop}
+					barHeight={data.normalized}
 					barCoorY={index === 0 ? 0 : 20 * index + 20}
 					barIndex={index}
 				/>

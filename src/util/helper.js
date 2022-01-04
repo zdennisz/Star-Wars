@@ -4,7 +4,8 @@ export const normalizeData = (values, maxValue, minValue) => {
 	return values.map((value) => {
 		return {
 			name: value.name,
-			pop:
+			pop: value.pop,
+			normalized:
 				(MAX_PX_VALUE - 0) * ((value.pop - minValue) / (maxValue - minValue)),
 		};
 	});
