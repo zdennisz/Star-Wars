@@ -1,1 +1,1 @@
-const MAX_PX_VALUE = 300;
+export const MAX_PX_VALUE = 300;

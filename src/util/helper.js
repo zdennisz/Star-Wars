@@ -1,7 +1,19 @@
 import { MAX_PX_VALUE } from "./consts";
 
-export const normalizeData = (values, maxValue) => {
-	return values.map((value) => {
-		return (MAX_PX_VALUE * value) / maxValue;
-	});
+export const normalizeData = (values, maxValue, minValue) => {
+	return values.map(
+		(value) =>
+			(MAX_PX_VALUE - 0) * ((value.pop - minValue) / (maxValue - minValue))
+	);
+	//return values.map((value) => (MAX_PX_VALUE * value.pop) / maxValue);
+};
+
+export const findMax = (arrOfObjects) => {
+	const allValues = arrOfObjects.map((value) => value.pop);
+	return Math.max(...allValues);
+};
+
+export const findMin = (arrOfObjects) => {
+	const allValues = arrOfObjects.map((value) => value.pop);
+	return Math.min(...allValues);
 };

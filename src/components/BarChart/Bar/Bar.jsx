@@ -1,7 +1,14 @@
 import React from "react";
 import "./Bar.css";
-const Bar = (barHeight, y) => {
-	return <rect width={barHeight} height='19' y={y}></rect>;
+const Bar = ({ barHeight, y, barIndex }) => {
+	return (
+		<rect
+			width='40'
+			height={barHeight}
+			x={barIndex * 34}
+			y={350 - barHeight}
+		></rect>
+	);
 };
 
 export default Bar;
