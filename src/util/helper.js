@@ -1,23 +1,52 @@
 import { MAX_PX_VALUE } from "./consts";
 
 export const normalizeData = (values, maxValue, minValue) => {
-	return values.map((value) => {
-		return {
-			name: value.name,
-			pop: value.pop,
+	const resultArr = [];
+	for (const [key, value] of Object.entries(values)) {
+		resultArr.push({
+			name: key,
+			pop: value,
 			normalized:
-				(MAX_PX_VALUE - 0) * ((value.pop - minValue) / (maxValue - minValue)),
-		};
-	});
-	//return values.map((value) => (MAX_PX_VALUE * value.pop) / maxValue);
+				(MAX_PX_VALUE - 0) * ((value - minValue) / (maxValue - minValue)),
+		});
+	}
+	return resultArr;
 };
 
-export const findMax = (arrOfObjects) => {
-	const allValues = arrOfObjects.map((value) => value.pop);
+export const findMax = (obj) => {
+	const allValues = Object.values(obj);
+
 	return Math.max(...allValues);
 };
 
-export const findMin = (arrOfObjects) => {
-	const allValues = arrOfObjects.map((value) => value.pop);
+export const findMin = (obj) => {
+	const allValues = Object.values(obj);
 	return Math.min(...allValues);
+};
+
+export const getPlanetData = async (param, page) => {
+	const res = await fetch(`https://swapi.dev/api/${param}/?page=${page}`);
+	return await res.json();
+};
+
+export const convertArrToObj = (arr) => {
+	let newObj = {};
+
+	for (var i = 0; i < arr.length; ++i) {
+		if (arr[i]) {
+			for (const [key, value] of Object.entries(arr[i])) newObj[key] = value;
+		}
+	}
+
+	return newObj;
+};
+
+export const checkIfMissingProperties = (obj) => {
+	let amount = 0;
+	for (const [key, value] of Object.entries(obj)) {
+		if (Object.getPrototypeOf(value) === Object.prototype) {
+			amount++;
+		}
+	}
+	return amount;
 };

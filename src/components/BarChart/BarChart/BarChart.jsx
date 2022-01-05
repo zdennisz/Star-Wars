@@ -1,8 +1,17 @@
 import React from "react";
 import SingleBar from "../SingleBar/SingleBar";
 import "./BarChart.css";
-import { normalizeData, findMax, findMin } from "../../../util/helper";
+import Spinner from "../../Spinner/Spinner";
+import {
+	normalizeData,
+	findMax,
+	findMin,
+	checkIfMissingProperties,
+} from "../../../util/helper";
 const BarChart = ({ planetInformation }) => {
+	if (checkIfMissingProperties(planetInformation) > 0) {
+		return <Spinner />;
+	}
 	// Iterate over all the planets and find the maximum and minimum
 	const maxValue = findMax(planetInformation);
 	const minValue = findMin(planetInformation);
