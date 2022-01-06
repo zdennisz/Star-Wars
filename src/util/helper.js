@@ -25,8 +25,12 @@ export const findMin = (obj) => {
 };
 
 export const getPlanetData = async (param, page) => {
-	const res = await fetch(`https://swapi.dev/api/${param}/?page=${page}`);
-	return await res.json();
+	try {
+		const res = await fetch(`https://swapi.dev/api/${param}/?page=${page}`);
+		return res.json();
+	} catch (err) {
+		return { err: "Failed to get the data please refresh" };
+	}
 };
 
 export const convertArrToObj = (arr) => {

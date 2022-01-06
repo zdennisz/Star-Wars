@@ -6,6 +6,7 @@ import {
 	convertArrToObj,
 	checkIfMissingProperties,
 } from "./util/helper";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 function App() {
 	const [planetData, setPlanetData] = useState({
 		Tatooine: {},
@@ -16,11 +17,17 @@ function App() {
 	});
 
 	const [planetPage, setPlanetPage] = useState(1);
+	const [errorMessage, setErrorMessage] = useState();
 
 	const retreievePlanetData = async (page) => {
 		try {
 			const plantes = await getPlanetData("planets", page);
 
+			if (plantes.err) {
+				console.log("err", plantes.err);
+				setErrorMessage(plantes.err);
+				return;
+			}
 			const result = plantes.results.map((planet) => {
 				if (planetData[planet.name]) {
 					return { [planet.name]: parseInt(planet.population) };
@@ -43,7 +50,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		retreievePlanetData(planetPage.page);
+		retreievePlanetData(planetPage);
 	}, []);
 
 	useEffect(() => {
@@ -54,7 +61,14 @@ function App() {
 
 	return (
 		<div className='App'>
-			<BarChart planetInformation={planetData} />
+			<div className='bar-chart-container'>
+				{errorMessage ? (
+					<ErrorMessage message={errorMessage} />
+				) : (
+					<BarChart planetInformation={planetData} />
+				)}
+			</div>
+			<div className='table-container'></div>
 		</div>
 	);
 }
