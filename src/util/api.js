@@ -43,8 +43,6 @@ export const getPilotBulkRequest = async (dataObj) => {
 
 		let resolvedPromises = await Promise.all(promiseArray);
 		for (let i = 0; i < resolvedPromises.length; i++) {
-			// const splittedAnswer = resolvedPromises[i].url.split("/");
-			// const newKey = splittedAnswer[4] + splittedAnswer[5];
 			result = { ...result, [i]: resolvedPromises[i] };
 		}
 
