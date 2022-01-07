@@ -109,3 +109,47 @@ export const mergeVechicleWithPilots = (prevState, pilots) => {
 
 	return newObj;
 };
+
+export const calculateLargestSum = (data) => {
+	const result = {};
+	for (const [key, value] of Object.entries(data)) {
+		result[key] = 0;
+		const set = new Set();
+		for (const [innerKey, innervalue] of Object.entries(value)) {
+			if (
+				!set.has(innervalue.homeworld) &&
+				innervalue.population !== "unknown"
+			) {
+				result[key] += parseInt(innervalue.population);
+				set.add(innervalue.homeworld);
+			}
+		}
+	}
+	const maxObj = { key: "", value: 0 };
+
+	for (const [key, value] of Object.entries(result)) {
+		if (maxObj.value < value) {
+			maxObj.key = key;
+			maxObj.value = value;
+		}
+	}
+	return maxObj;
+};
+
+export const getHomePlanetsAndPopulation = (data) => {
+	const newArr = [];
+	for (const [key, value] of Object.entries(data)) {
+		newArr.push({ homeworld: value.homeworld, population: value.population });
+	}
+
+	return newArr;
+};
+export const getPilotsOfHomeWorld = (data) => {
+	console.log("data", data);
+	const newArr = [];
+	for (const [key, value] of Object.entries(data)) {
+		newArr.push({ pilot: value.name });
+	}
+
+	return newArr;
+};

@@ -5,6 +5,9 @@ import {
 	convertPilotHomeWorld,
 	mergePilotsWithHomeWorlds,
 	mergeVechicleWithPilots,
+	calculateLargestSum,
+	getHomePlanetsAndPopulation,
+	getPilotsOfHomeWorld,
 } from "../../util/helper";
 import {
 	getBulkRequest,
@@ -68,10 +71,20 @@ const TableController = () => {
 	useEffect(() => {
 		console.log("vehicles", vehicles);
 		if (vehicles) {
+			const largestSumVechicle = calculateLargestSum(vehicles);
+			const homePlanetAndPop = getHomePlanetsAndPopulation(
+				vehicles[largestSumVechicle.key]
+			);
+			const pilots = getPilotsOfHomeWorld(vehicles[largestSumVechicle.key]);
+			setTableData({
+				vehicleName: largestSumVechicle.key,
+				homeworld: homePlanetAndPop,
+				pilots: pilots,
+			});
 		}
 	}, [vehicles]);
 
-	return <Table tableData={"nak nak"} />;
+	return <Table tableData={tableData} />;
 };
 
 export default TableController;
