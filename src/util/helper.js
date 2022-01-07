@@ -24,15 +24,6 @@ export const findMin = (obj) => {
 	return Math.min(...allValues);
 };
 
-export const getPlanetData = async (param, page) => {
-	try {
-		const res = await fetch(`https://swapi.dev/api/${param}/?page=${page}`);
-		return res.json();
-	} catch (err) {
-		return { err: "Failed to get the data please refresh" };
-	}
-};
-
 export const convertArrToObj = (arr) => {
 	let newObj = {};
 
@@ -53,4 +44,78 @@ export const checkIfMissingProperties = (obj) => {
 		}
 	}
 	return amount;
+};
+
+export const getAllVechicles = (allVechicles) => {
+	if (allVechicles) {
+		const result = allVechicles.map((vehicle) => {
+			return { name: vehicle.name, pilots: vehicle.pilots };
+		});
+		return result;
+	}
+	return [];
+};
+
+export const getPilotInfo = (pilots) => {
+	const newObj = {};
+	for (const [key, value] of Object.entries(pilots)) {
+		const splittedAnswer = value.url.split("/");
+		const newKey = splittedAnswer[4] + splittedAnswer[5];
+		newObj[newKey] = { name: value.name, homeworld: value.homeworld };
+	}
+	return newObj;
+};
+
+export const getHomeWorldPop = (homeWorlds) => {
+	const newObj = {};
+	for (const [key, value] of Object.entries(homeWorlds)) {
+		newObj[key] = { name: value.name, population: value.population };
+	}
+	return newObj;
+};
+
+export const getHomeWorldUrl = (pilots) => {
+	// const newObj={};
+	// for(const [key,value] of Object.entries(pilots)){
+	// 	newObj
+	// }
+};
+export const convertPilotHomeWorld = (pilots) => {
+	console.log("pilots", pilots);
+	const newObj = {};
+	for (const [key, value] of Object.entries(pilots)) {
+		const splittedAnswer = value.homeworld.split("/");
+		const newKey = splittedAnswer[4] + splittedAnswer[5];
+		newObj[key] = { name: value.name, homeworld: newKey };
+	}
+
+	return newObj;
+};
+
+export const mergePilotsWithHomeWorlds = (pilots, homeWorlds) => {
+	const newObj = {};
+
+	for (const [key, value] of Object.entries(pilots)) {
+		newObj[key] = {
+			name: value.name,
+			homeworld: homeWorlds[value.homeworld].name,
+			population: homeWorlds[value.homeworld].population,
+		};
+	}
+	return newObj;
+};
+export const mergeVechicleWithPilots = (prevState, pilots) => {
+	const newObj = {};
+	console.log("prevState", prevState);
+	console.log("pilots", pilots);
+	for (const [key, value] of Object.entries(prevState)) {
+		value.pilots.forEach((pilot) => {
+			const splittedAnswer = pilot.split("/");
+			const newKey = splittedAnswer[4] + splittedAnswer[5];
+			newObj[key] = { ...newObj[key], [newKey]: pilots[newKey] };
+		});
+	}
+	console.log("newObj", newObj);
+
+	return newObj;
 };

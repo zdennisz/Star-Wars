@@ -12,6 +12,7 @@ const BarChart = ({ planetInformation }) => {
 	if (checkIfMissingProperties(planetInformation) > 0) {
 		return <Spinner />;
 	}
+
 	// Iterate over all the planets and find the maximum and minimum
 	const maxValue = findMax(planetInformation);
 	const minValue = findMin(planetInformation);
@@ -23,7 +24,7 @@ const BarChart = ({ planetInformation }) => {
 	return (
 		<svg
 			className='chart'
-			width='420'
+			width='520'
 			height='550'
 			aria-labelledby='title desc'
 			role='img'

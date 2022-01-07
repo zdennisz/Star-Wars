@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import BarChart from "./components/BarChart/BarChart/BarChart";
-import {
-	getPlanetData,
-	convertArrToObj,
-	checkIfMissingProperties,
-} from "./util/helper";
+import { convertArrToObj, checkIfMissingProperties } from "./util/helper";
+import { getRequest } from "./util/api";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import Table from "./components/Table/Table";
 function App() {
 	const [planetData, setPlanetData] = useState({
 		Tatooine: {},
@@ -21,10 +19,9 @@ function App() {
 
 	const retreievePlanetData = async (page) => {
 		try {
-			const plantes = await getPlanetData("planets", page);
+			const plantes = await getRequest("planets", page);
 
 			if (plantes.err) {
-				console.log("err", plantes.err);
 				setErrorMessage(plantes.err);
 				return;
 			}
@@ -68,7 +65,9 @@ function App() {
 					<BarChart planetInformation={planetData} />
 				)}
 			</div>
-			<div className='table-container'></div>
+			<div className='table-container'>
+				<Table />
+			</div>
 		</div>
 	);
 }
