@@ -74,14 +74,7 @@ export const getHomeWorldPop = (homeWorlds) => {
 	return newObj;
 };
 
-export const getHomeWorldUrl = (pilots) => {
-	// const newObj={};
-	// for(const [key,value] of Object.entries(pilots)){
-	// 	newObj
-	// }
-};
 export const convertPilotHomeWorld = (pilots) => {
-	console.log("pilots", pilots);
 	const newObj = {};
 	for (const [key, value] of Object.entries(pilots)) {
 		const splittedAnswer = value.homeworld.split("/");
@@ -106,8 +99,6 @@ export const mergePilotsWithHomeWorlds = (pilots, homeWorlds) => {
 };
 export const mergeVechicleWithPilots = (prevState, pilots) => {
 	const newObj = {};
-	console.log("prevState", prevState);
-	console.log("pilots", pilots);
 	for (const [key, value] of Object.entries(prevState)) {
 		value.pilots.forEach((pilot) => {
 			const splittedAnswer = pilot.split("/");
@@ -115,7 +106,6 @@ export const mergeVechicleWithPilots = (prevState, pilots) => {
 			newObj[key] = { ...newObj[key], [newKey]: pilots[newKey] };
 		});
 	}
-	console.log("newObj", newObj);
 
 	return newObj;
 };

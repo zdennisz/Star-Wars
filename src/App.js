@@ -4,7 +4,7 @@ import BarChart from "./components/BarChart/BarChart/BarChart";
 import { convertArrToObj, checkIfMissingProperties } from "./util/helper";
 import { getRequest } from "./util/api";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import Table from "./components/Table/Table";
+import TableController from "./components/Table/TableController";
 function App() {
 	const [planetData, setPlanetData] = useState({
 		Tatooine: {},
@@ -66,7 +66,7 @@ function App() {
 				)}
 			</div>
 			<div className='table-container'>
-				<Table />
+				<TableController />
 			</div>
 		</div>
 	);
