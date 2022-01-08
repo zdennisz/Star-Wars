@@ -1,21 +1,23 @@
 @import "./util/theme.scss";
 
 .App {
-	min-height: 100vh;
+	height: 100vh;
 	width: 100vw;
 	overflow-x: hidden;
 	background-color: $background-color;
-	color:$text-color;
-	display: flex;
-	justify-content: space-around;
+	color: $text-color;
+	justify-items: center;
 	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 1fr;
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
 }
 
 @media (max-width: 599px) {
-	.App{
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: normal;
+	.App {
+		grid-template-columns: 100%;
+		grid-template-rows: 50% 50%;
 	}
    }
-
