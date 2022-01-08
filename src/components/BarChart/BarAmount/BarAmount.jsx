@@ -1,6 +1,5 @@
 import React from "react";
-
-import "./BarAmount.css";
+import "./BarAmount.scss";
 const BarAmount = ({ barIndex, text, barHeight }) => {
 	return (
 		<text

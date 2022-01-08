@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import TableController from "./components/Table/TableController";
 import BarChartController from "./components/BarChart/BarChartController";
 function App() {

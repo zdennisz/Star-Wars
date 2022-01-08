@@ -2,7 +2,7 @@ import React from "react";
 import BarTitle from "../BarTitle/BarTitle";
 import BarRectangle from "../BarRectangle/BarRectangle";
 import BarAmount from "../BarAmount/BarAmount";
-import "./Bar.css";
+import "./Bar.scss";
 const Bar = ({ barAmount, barTitle, barHeight, barIndex }) => {
 	return (
 		<g className='bar'>

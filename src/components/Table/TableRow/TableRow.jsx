@@ -1,5 +1,5 @@
 import React from "react";
-import "./TableRow.css";
+import "./TableRow.scss";
 import { HOMEWORLD } from "./../../../util/consts";
 const TableRow = ({ rowName, rowInfo, type }) => {
 	return (
