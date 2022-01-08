@@ -1,6 +1,6 @@
 import React from "react";
 import "./ErrorMessage.scss";
-import ErrorImage from "./../../assets/error_image.jpg";
+import ErrorImage from "./../../assets/error_image.png";
 const ErrorMessage = ({ message }) => {
 	return (
 		<div className='error-message-container'>
