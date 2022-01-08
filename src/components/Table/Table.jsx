@@ -6,6 +6,7 @@ const Table = ({ tableData }) => {
 	if (!tableData) {
 		return null;
 	}
+
 	return (
 		<table className='table'>
 			<tbody className='table-container'>

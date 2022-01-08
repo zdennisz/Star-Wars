@@ -9,9 +9,11 @@ const TableRow = ({ rowName, rowInfo, type }) => {
 				{Array.isArray(rowInfo)
 					? rowInfo.map((rowText) => {
 							if (type === HOMEWORLD) {
-								return rowText.homeworld + " " + rowText.population;
+								return (
+									"\n[" + rowText.homeworld + "," + rowText.population + "]\n\n"
+								);
 							} else {
-								return rowText.pilot;
+								return "\n[" + rowText.pilot + "]\n";
 							}
 					  })
 					: rowInfo}
