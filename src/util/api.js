@@ -32,15 +32,18 @@ export const getBulkRequest = async (param) => {
 
 export const getPilotBulkRequest = async (dataObj) => {
 	try {
+		const promiseSet = new Set();
 		const promiseArray = [];
 		let result = {};
 
 		for (const [key, value] of Object.entries(dataObj)) {
 			value.pilots.forEach((pilot) => {
-				promiseArray.push(getCustomRequest(pilot));
+				if (!promiseSet.has(pilot)) {
+					promiseSet.add(pilot);
+					promiseArray.push(getCustomRequest(pilot));
+				}
 			});
 		}
-
 		let resolvedPromises = await Promise.all(promiseArray);
 		for (let i = 0; i < resolvedPromises.length; i++) {
 			result = { ...result, [i]: resolvedPromises[i] };
@@ -54,9 +57,13 @@ export const getPilotBulkRequest = async (dataObj) => {
 export const getHomeWorldBulkRequest = async (dataObj) => {
 	try {
 		const promiseArray = [];
+		const promiseSet = new Set();
 		let result = {};
 		for (const [key, value] of Object.entries(dataObj)) {
-			promiseArray.push(getCustomRequest(value.homeworld));
+			if (!promiseSet.has(value.homeworld)) {
+				promiseSet.add(value.homeworld);
+				promiseArray.push(getCustomRequest(value.homeworld));
+			}
 		}
 
 		let resolvedPromises = await Promise.all(promiseArray);
