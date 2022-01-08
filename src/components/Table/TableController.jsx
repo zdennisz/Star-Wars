@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {
-	getPilotInfo,
-	getHomeWorldPop,
-	convertPilotHomeWorld,
+	parsePilotHomeWorldInfo,
+	parseHomeWorldPopulation,
+	buildPilotsWithHomeWorld,
 	mergePilotsWithHomeWorlds,
 	mergeVechicleWithPilots,
 	calculateLargestSum,
@@ -21,57 +21,77 @@ const TableController = () => {
 	const [tableData, setTableData] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const getPilots = useCallback(async (data) => {
-		try {
-			const pilots = await getPilotBulkRequest(data);
+	const mergeAllInformation = useCallback((vechiles, pilots, homeWorlds) => {
+		const mergedPlanetsWithPilots = mergePilotsWithHomeWorlds(
+			pilots,
+			homeWorlds
+		);
 
-			const formatedPilotsGetRequest = getPilotInfo(pilots);
-
-			const homeWorlds = await getHomeWorldBulkRequest(
-				formatedPilotsGetRequest
-			);
-
-			const homeWorldsPopulation = getHomeWorldPop(homeWorlds);
-
-			const pilotsWithPlanetId = convertPilotHomeWorld(
-				formatedPilotsGetRequest
-			);
-
-			const mergedPlanetsWithPilots = mergePilotsWithHomeWorlds(
-				pilotsWithPlanetId,
-				homeWorldsPopulation
-			);
-
-			setVehicles(() => {
-				return mergeVechicleWithPilots(data, mergedPlanetsWithPilots);
-			});
-		} catch (err) {
-			console.error(err);
-		}
+		setVehicles(() => {
+			return mergeVechicleWithPilots(vechiles, mergedPlanetsWithPilots);
+		});
 	}, []);
+
+	const getHomeWorldData = useCallback(
+		async (pilots, vehicleData) => {
+			try {
+				const homeWorlds = await getHomeWorldBulkRequest(pilots);
+
+				const homeWorldsPopulation = parseHomeWorldPopulation(homeWorlds);
+
+				const pilotsWithPlanets = buildPilotsWithHomeWorld(pilots);
+				// Once we have the vehicles ,pilots & homeworlds we merge all the data
+				mergeAllInformation(
+					vehicleData,
+					pilotsWithPlanets,
+					homeWorldsPopulation
+				);
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		[mergeAllInformation]
+	);
+	const getPilots = useCallback(
+		async (vehicleData) => {
+			try {
+				const pilots = await getPilotBulkRequest(vehicleData);
+
+				const formatedPilotsGetRequest = parsePilotHomeWorldInfo(pilots);
+				// Once we have the pilots we go for the homeworlds
+				getHomeWorldData(formatedPilotsGetRequest, vehicleData);
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		[getHomeWorldData]
+	);
 
 	const getVehicleData = useCallback(async () => {
 		try {
 			const response = await getBulkRequest("vehicles");
-			const filteredData = {};
+			const filteredVechicles = {};
 
 			response.forEach((vehicle) => {
 				if (vehicle.pilots.length > 0) {
-					filteredData[vehicle.name] = { pilots: vehicle.pilots };
+					filteredVechicles[vehicle.name] = { pilots: vehicle.pilots };
 				}
 			});
-			getPilots(filteredData);
+			// Once we have the vehicles we get all the pilots
+			getPilots(filteredVechicles);
 		} catch (err) {
 			console.error(err);
 		}
 	}, [getPilots]);
 
 	useEffect(() => {
+		// At first we get the vehicles data
 		getVehicleData();
 	}, [getVehicleData]);
 
 	useEffect(() => {
 		if (vehicles) {
+			// Compute the end result for the table
 			const largestSumVechicle = calculateLargestSum(vehicles);
 			const homePlanetAndPop = getHomePlanetsAndPopulation(
 				vehicles[largestSumVechicle]

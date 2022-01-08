@@ -34,17 +34,7 @@ export const checkIfMissingProperties = (obj) => {
 	return amount;
 };
 
-export const getAllVechicles = (allVechicles) => {
-	if (allVechicles) {
-		const result = allVechicles.map((vehicle) => {
-			return { name: vehicle.name, pilots: vehicle.pilots };
-		});
-		return result;
-	}
-	return [];
-};
-
-export const getPilotInfo = (pilots) => {
+export const parsePilotHomeWorldInfo = (pilots) => {
 	const newObj = {};
 	for (const value of Object.values(pilots)) {
 		const splittedAnswer = value.url.split("/");
@@ -54,7 +44,7 @@ export const getPilotInfo = (pilots) => {
 	return newObj;
 };
 
-export const getHomeWorldPop = (homeWorlds) => {
+export const parseHomeWorldPopulation = (homeWorlds) => {
 	const newObj = {};
 	for (const [key, value] of Object.entries(homeWorlds)) {
 		newObj[key] = { name: value.name, population: value.population };
@@ -62,7 +52,7 @@ export const getHomeWorldPop = (homeWorlds) => {
 	return newObj;
 };
 
-export const convertPilotHomeWorld = (pilots) => {
+export const buildPilotsWithHomeWorld = (pilots) => {
 	const newObj = {};
 	for (const [key, value] of Object.entries(pilots)) {
 		const splittedAnswer = value.homeworld.split("/");
@@ -126,7 +116,7 @@ export const calculateLargestSum = (data) => {
 
 export const getHomePlanetsAndPopulation = (data) => {
 	const newArr = [];
-	for (const [key, value] of Object.entries(data)) {
+	for (const value of Object.values(data)) {
 		newArr.push({ homeworld: value.homeworld, population: value.population });
 	}
 
@@ -134,7 +124,7 @@ export const getHomePlanetsAndPopulation = (data) => {
 };
 export const getPilotsOfHomeWorld = (data) => {
 	const newArr = [];
-	for (const [key, value] of Object.entries(data)) {
+	for (const value of Object.values(data)) {
 		newArr.push({ pilot: value.name });
 	}
 
