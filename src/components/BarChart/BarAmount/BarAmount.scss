@@ -1,9 +1,11 @@
+@import "../../../util/theme.scss";
+
 .text {
-	fill: black;
+fill:$text-color ;
 	height: 21px;
 	font-size: small;
 }
 
 .text:hover {
-	fill: red;
+	// fill: red;
 }

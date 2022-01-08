@@ -1,4 +1,5 @@
+@import "./../../../util/theme.scss";
 .text {
-	color: black;
+	color: $text-color;
 	text-anchor: middle;
 }

@@ -86,7 +86,7 @@ const TableController = () => {
 		}
 	}, [vehicles]);
 
-	return <>{isLoading ? <Spinner /> : <Table tableData={tableData} />};</>;
+	return <>{isLoading ? <Spinner /> : <Table tableData={tableData} />}</>;
 };
 
 export default TableController;
