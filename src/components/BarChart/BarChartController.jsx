@@ -6,6 +6,7 @@ import {
 } from "./../../util/helper";
 import { getSinglePageRequest } from "./../../util/api";
 import BarChart from "./BarChart/BarChart";
+import Spinner from "../Spinner/Spinner";
 const BarChartController = () => {
 	const [planetData, setPlanetData] = useState({
 		Tatooine: {},
@@ -14,7 +15,7 @@ const BarChartController = () => {
 		Bespin: {},
 		Endor: {},
 	});
-
+	const [isLoading, setIsLoading] = useState(true);
 	const planetPage = useRef({ page: 1, canGoNext: true });
 	const [errorMessage, setErrorMessage] = useState(null);
 
@@ -66,12 +67,16 @@ const BarChartController = () => {
 			planetPage.current.canGoNext
 		) {
 			retreievePlanetData(planetPage.current.page);
+		} else {
+			setIsLoading(false);
 		}
 	}, [planetData, planetPage, retreievePlanetData]);
 
 	return (
 		<>
-			{errorMessage ? (
+			{isLoading ? (
+				<Spinner />
+			) : errorMessage ? (
 				<ErrorMessage message={errorMessage} />
 			) : (
 				<BarChart planetInformation={removeUnusedProperty(planetData)} />
@@ -81,3 +86,11 @@ const BarChartController = () => {
 };
 
 export default BarChartController;
+
+// {errorMessage ? (
+// 	<ErrorMessage message={errorMessage} />
+// ) : isLoading ? (
+// 	<Spinner />
+// ) : (
+// 	<BarChart planetInformation={removeUnusedProperty(planetData)} />
+// )}

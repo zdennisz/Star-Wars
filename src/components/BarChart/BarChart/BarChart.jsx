@@ -9,10 +9,6 @@ import {
 	checkIfMissingProperties,
 } from "../../../util/helper";
 const BarChart = ({ planetInformation }) => {
-	if (checkIfMissingProperties(planetInformation) > 0) {
-		return <Spinner />;
-	}
-
 	// Iterate over all the planets and find the maximum and minimum
 	const maxValue = findMax(planetInformation);
 	const minValue = findMin(planetInformation);

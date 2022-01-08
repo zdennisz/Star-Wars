@@ -15,9 +15,11 @@ import {
 	getHomeWorldBulkRequest,
 } from "../../util/api";
 import Table from "./Table";
+import Spinner from "../Spinner/Spinner";
 const TableController = () => {
 	const [vehicles, setVehicles] = useState(null);
 	const [tableData, setTableData] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const getPilots = useCallback(async (data) => {
 		try {
@@ -80,10 +82,11 @@ const TableController = () => {
 				homeworld: homePlanetAndPop,
 				pilots: pilots,
 			});
+			setIsLoading(false);
 		}
 	}, [vehicles]);
 
-	return <Table tableData={tableData} />;
+	return <>{isLoading ? <Spinner /> : <Table tableData={tableData} />};</>;
 };
 
 export default TableController;
