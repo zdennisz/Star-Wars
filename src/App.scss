@@ -6,7 +6,16 @@
 	overflow: hidden;
 	background-color: $background-color;
 	color:$text-color;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 }
 
-
+@media (max-width: 599px) {
+	.App{
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: normal;
+	}
+   }
 

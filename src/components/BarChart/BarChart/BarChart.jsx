@@ -19,7 +19,7 @@ const BarChart = ({ planetInformation }) => {
 				height='720'
 				aria-labelledby='title desc'
 				role='img'
-				viewBox='-90 0 520 720'
+				viewBox='-90 -100 520 720'
 			>
 				{normalizedData.map((data, index) => (
 					<Bar
