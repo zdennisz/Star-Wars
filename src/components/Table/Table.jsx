@@ -2,7 +2,6 @@ import React from "react";
 import TableRow from "./TableRow/TableRow";
 import { HOMEWORLD } from "../../util/consts";
 const Table = ({ tableData }) => {
-	console.log("tabledata", tableData);
 	if (!tableData) {
 		return null;
 	}

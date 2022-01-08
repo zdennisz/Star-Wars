@@ -69,15 +69,14 @@ const TableController = () => {
 	}, [getVehicleData]);
 
 	useEffect(() => {
-		console.log("vehicles", vehicles);
 		if (vehicles) {
 			const largestSumVechicle = calculateLargestSum(vehicles);
 			const homePlanetAndPop = getHomePlanetsAndPopulation(
-				vehicles[largestSumVechicle.key]
+				vehicles[largestSumVechicle]
 			);
-			const pilots = getPilotsOfHomeWorld(vehicles[largestSumVechicle.key]);
+			const pilots = getPilotsOfHomeWorld(vehicles[largestSumVechicle]);
 			setTableData({
-				vehicleName: largestSumVechicle.key,
+				vehicleName: largestSumVechicle,
 				homeworld: homePlanetAndPop,
 				pilots: pilots,
 			});

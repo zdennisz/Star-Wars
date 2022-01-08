@@ -1,4 +1,4 @@
-export const getRequest = async (param, page) => {
+export const getSinglePageRequest = async (param, page) => {
 	try {
 		const res = await fetch(
 			`https://swapi.py4e.com/api/${param}/?page=${page}`
@@ -11,13 +11,13 @@ export const getRequest = async (param, page) => {
 
 export const getBulkRequest = async (param) => {
 	try {
-		const response = await getRequest(param, 1);
+		const response = await getSinglePageRequest(param, 1);
 		let result = [];
 		const totalData = response.count;
 		const totalPages = Math.ceil(totalData / response.results.length);
 		const promiseArray = [];
 		for (let i = 0; i < totalPages; i++) {
-			promiseArray.push(getRequest(param, i + 1));
+			promiseArray.push(getSinglePageRequest(param, i + 1));
 		}
 		let resolvedPromises = await Promise.all(promiseArray);
 		for (let i = 0; i < resolvedPromises.length; i++) {

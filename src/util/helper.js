@@ -24,21 +24,9 @@ export const findMin = (obj) => {
 	return Math.min(...allValues);
 };
 
-export const convertArrToObj = (arr) => {
-	let newObj = {};
-
-	for (var i = 0; i < arr.length; ++i) {
-		if (arr[i]) {
-			for (const [key, value] of Object.entries(arr[i])) newObj[key] = value;
-		}
-	}
-
-	return newObj;
-};
-
 export const checkIfMissingProperties = (obj) => {
 	let amount = 0;
-	for (const [key, value] of Object.entries(obj)) {
+	for (const value of Object.values(obj)) {
 		if (Object.getPrototypeOf(value) === Object.prototype) {
 			amount++;
 		}
@@ -58,7 +46,7 @@ export const getAllVechicles = (allVechicles) => {
 
 export const getPilotInfo = (pilots) => {
 	const newObj = {};
-	for (const [key, value] of Object.entries(pilots)) {
+	for (const value of Object.values(pilots)) {
 		const splittedAnswer = value.url.split("/");
 		const newKey = splittedAnswer[4] + splittedAnswer[5];
 		newObj[newKey] = { name: value.name, homeworld: value.homeworld };
@@ -115,7 +103,7 @@ export const calculateLargestSum = (data) => {
 	for (const [key, value] of Object.entries(data)) {
 		result[key] = 0;
 		const set = new Set();
-		for (const [innerKey, innervalue] of Object.entries(value)) {
+		for (const innervalue of Object.values(value)) {
 			if (
 				!set.has(innervalue.homeworld) &&
 				innervalue.population !== "unknown"
@@ -125,15 +113,15 @@ export const calculateLargestSum = (data) => {
 			}
 		}
 	}
-	const maxObj = { key: "", value: 0 };
-
+	let maxKey = "";
+	let maxValue = 0;
 	for (const [key, value] of Object.entries(result)) {
-		if (maxObj.value < value) {
-			maxObj.key = key;
-			maxObj.value = value;
+		if (maxValue < value) {
+			maxKey = key;
+			maxValue = value;
 		}
 	}
-	return maxObj;
+	return maxKey;
 };
 
 export const getHomePlanetsAndPopulation = (data) => {
@@ -145,11 +133,21 @@ export const getHomePlanetsAndPopulation = (data) => {
 	return newArr;
 };
 export const getPilotsOfHomeWorld = (data) => {
-	console.log("data", data);
 	const newArr = [];
 	for (const [key, value] of Object.entries(data)) {
 		newArr.push({ pilot: value.name });
 	}
 
 	return newArr;
+};
+
+export const removeUnusedProperty = (data) => {
+	let newObj = {};
+	for (const [key, value] of Object.entries(data)) {
+		if (Object.getPrototypeOf(value) !== Object.prototype) {
+			newObj[key] = value;
+		}
+	}
+
+	return newObj;
 };

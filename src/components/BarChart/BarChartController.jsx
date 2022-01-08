@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import ErrorMessage from "./../ErrorMessage/ErrorMessage";
-import { checkIfMissingProperties, convertArrToObj } from "./../../util/helper";
-import { getRequest } from "./../../util/api";
+import {
+	checkIfMissingProperties,
+	removeUnusedProperty,
+} from "./../../util/helper";
+import { getSinglePageRequest } from "./../../util/api";
 import BarChart from "./BarChart/BarChart";
 const BarChartController = () => {
 	const [planetData, setPlanetData] = useState({
@@ -12,54 +15,66 @@ const BarChartController = () => {
 		Endor: {},
 	});
 
-	const [planetPage, setPlanetPage] = useState(1);
+	const planetPage = useRef({ page: 1, canGoNext: true });
 	const [errorMessage, setErrorMessage] = useState(null);
 
-	const retreievePlanetData = async (page) => {
-		try {
-			const plantes = await getRequest("planets", page);
+	const retreievePlanetData = useCallback(
+		async (page) => {
+			try {
+				const plantes = await getSinglePageRequest("planets", page);
 
-			if (plantes.err) {
-				setErrorMessage(plantes.err);
-				return;
-			}
-			const result = plantes.results.map((planet) => {
-				if (planetData[planet.name]) {
-					return { [planet.name]: parseInt(planet.population) };
+				if (plantes.err) {
+					setErrorMessage(plantes.err);
+					return;
 				}
-			});
+				// Itertae over the results and extract the planet name and population
+				let result = {};
+				plantes.results.forEach((planet) => {
+					if (planetData[planet.name]) {
+						result = {
+							...result,
+							[planet.name]:
+								planet.population === "unknown"
+									? 0
+									: parseInt(planet.population),
+						};
+					}
+				});
 
-			const formattedResult = convertArrToObj(result);
-
-			setPlanetData((prevState) => ({
-				...prevState,
-				...formattedResult,
-			}));
-
-			setPlanetPage((state) => ({
-				page: state + 1,
-			}));
-		} catch (err) {
-			console.error(err);
-		}
-	};
+				// Check if we have more pages to lookup
+				if (plantes.next === null) {
+					planetPage.current.canGoNext = false;
+				} else {
+					planetPage.current.page = planetPage.current.page + 1;
+				}
+				// Update the state with the latest data
+				setPlanetData((prevState) => ({
+					...prevState,
+					...result,
+				}));
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		[planetData, planetPage]
+	);
 
 	useEffect(() => {
-		retreievePlanetData(planetPage);
-	}, []);
-
-	useEffect(() => {
-		if (checkIfMissingProperties(planetData) > 0) {
-			retreievePlanetData(planetPage);
+		// Check if we have more pages to lookup and if we have missing planet data
+		if (
+			checkIfMissingProperties(planetData) > 0 &&
+			planetPage.current.canGoNext
+		) {
+			retreievePlanetData(planetPage.current.page);
 		}
-	}, [planetPage]);
+	}, [planetData, planetPage, retreievePlanetData]);
 
 	return (
 		<>
 			{errorMessage ? (
 				<ErrorMessage message={errorMessage} />
 			) : (
-				<BarChart planetInformation={planetData} />
+				<BarChart planetInformation={removeUnusedProperty(planetData)} />
 			)}
 		</>
 	);
