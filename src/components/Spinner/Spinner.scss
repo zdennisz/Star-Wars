@@ -1,3 +1,4 @@
+@import "../../util/theme.scss";
 .loader,
 .loader:after {
 	border-radius: 50%;
@@ -9,10 +10,10 @@
 	font-size: 10px;
 	position: relative;
 	text-indent: -9999em;
-	border-top: 1.1em solid rgba(28, 42, 230, 0.993);
-	border-right: 1.1em solid rgba(208, 255, 0, 0.2);
-	border-bottom: 1.1em solid rgba(255, 0, 34, 0.842);
-	border-left: 1.1em solid rgb(96, 231, 213);
+	border-top: 1.1em solid $pallete-1;
+	border-right: 1.1em solid $pallete-2;
+	border-bottom: 1.1em solid $pallete-3;
+	border-left: 1.1em solid $pallete-4;
 	-webkit-transform: translateZ(0);
 	-ms-transform: translateZ(0);
 	transform: translateZ(0);
