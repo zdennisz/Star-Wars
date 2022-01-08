@@ -1,5 +1,6 @@
 import React from "react";
 import "./BarAmount.scss";
+
 const BarAmount = ({ barIndex, text, barHeight }) => {
 	return (
 		<text

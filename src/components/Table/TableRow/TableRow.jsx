@@ -1,6 +1,7 @@
 import React from "react";
-import "./TableRow.scss";
 import { HOMEWORLD } from "./../../../util/consts";
+import "./TableRow.scss";
+
 const TableRow = ({ rowName, rowInfo, type }) => {
 	return (
 		<tr>

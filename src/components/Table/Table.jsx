@@ -2,6 +2,7 @@ import React from "react";
 import TableRow from "./TableRow/TableRow";
 import { HOMEWORLD } from "../../util/consts";
 import "./Table.scss";
+
 const Table = ({ tableData }) => {
 	if (!tableData) {
 		return null;

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import BarChart from "./BarChart/BarChart";
+import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "./../ErrorMessage/ErrorMessage";
 import {
 	checkIfMissingProperties,
 	removeUnusedProperty,
 } from "./../../util/helper";
 import { getSinglePageRequest } from "./../../util/api";
-import BarChart from "./BarChart/BarChart";
-import Spinner from "../Spinner/Spinner";
+
 const BarChartController = () => {
 	const [planetData, setPlanetData] = useState({
 		Tatooine: {},

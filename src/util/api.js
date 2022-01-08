@@ -54,6 +54,7 @@ export const getPilotBulkRequest = async (dataObj) => {
 		console.error(err);
 	}
 };
+
 export const getHomeWorldBulkRequest = async (dataObj) => {
 	try {
 		const promiseArray = [];

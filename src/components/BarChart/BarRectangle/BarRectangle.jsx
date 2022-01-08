@@ -1,5 +1,6 @@
 import React from "react";
 import "./BarRectangle.scss";
+
 const BarRectangle = ({ barHeight, barIndex }) => {
 	return (
 		<rect

@@ -16,6 +16,7 @@ import {
 } from "../../util/api";
 import Table from "./Table";
 import Spinner from "../Spinner/Spinner";
+
 const TableController = () => {
 	const [vehicles, setVehicles] = useState(null);
 	const [tableData, setTableData] = useState(null);

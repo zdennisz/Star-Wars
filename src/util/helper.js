@@ -75,6 +75,7 @@ export const mergePilotsWithHomeWorlds = (pilots, homeWorlds) => {
 	}
 	return newObj;
 };
+
 export const mergeVechicleWithPilots = (prevState, pilots) => {
 	const newObj = {};
 	for (const [key, value] of Object.entries(prevState)) {
@@ -122,6 +123,7 @@ export const getHomePlanetsAndPopulation = (data) => {
 
 	return newArr;
 };
+
 export const getPilotsOfHomeWorld = (data) => {
 	const newArr = [];
 	for (const value of Object.values(data)) {

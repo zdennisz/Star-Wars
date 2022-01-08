@@ -1,7 +1,8 @@
 import React from "react";
 import Bar from "../Bar/Bar";
-import "./BarChart.scss";
 import { normalizeData, findMax, findMin } from "../../../util/helper";
+import "./BarChart.scss";
+
 const BarChart = ({ planetInformation }) => {
 	// Iterate over all the planets and find the maximum and minimum
 	const maxValue = findMax(planetInformation);

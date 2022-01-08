@@ -1,7 +1,8 @@
 import React from "react";
-import "./App.scss";
 import TableController from "./components/Table/TableController";
 import BarChartController from "./components/BarChart/BarChartController";
+import "./App.scss";
+
 function App() {
 	return (
 		<div className='App'>
