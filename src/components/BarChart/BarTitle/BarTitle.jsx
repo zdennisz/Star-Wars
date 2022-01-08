@@ -1,6 +1,6 @@
 import React from "react";
-import "./BarText.css";
-const BarText = ({ barIndex, barHeight, text }) => {
+import "./BarTitle.css";
+const BarTitle = ({ barIndex, barHeight, text }) => {
 	return (
 		<text className='text' x={barIndex * 60 + 20} y={380} dy='.25em'>
 			{text}
@@ -8,4 +8,4 @@ const BarText = ({ barIndex, barHeight, text }) => {
 	);
 };
 
-export default BarText;
+export default BarTitle;

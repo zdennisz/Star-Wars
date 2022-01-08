@@ -1,13 +1,7 @@
 import React from "react";
-import SingleBar from "../SingleBar/SingleBar";
+import Bar from "../Bar/Bar";
 import "./BarChart.css";
-import Spinner from "../../Spinner/Spinner";
-import {
-	normalizeData,
-	findMax,
-	findMin,
-	checkIfMissingProperties,
-} from "../../../util/helper";
+import { normalizeData, findMax, findMin } from "../../../util/helper";
 const BarChart = ({ planetInformation }) => {
 	// Iterate over all the planets and find the maximum and minimum
 	const maxValue = findMax(planetInformation);
@@ -26,12 +20,11 @@ const BarChart = ({ planetInformation }) => {
 			role='img'
 		>
 			{normalizedData.map((data, index) => (
-				<SingleBar
+				<Bar
 					barAmount={data.pop}
 					barTitle={data.name}
 					key={index}
 					barHeight={data.normalized}
-					barCoorY={index === 0 ? 0 : 20 * index + 20}
 					barIndex={index}
 				/>
 			))}

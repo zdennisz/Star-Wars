@@ -1,13 +1,15 @@
 import React from "react";
+import BarTitle from "../BarTitle/BarTitle";
+import BarRectangle from "../BarRectangle/BarRectangle";
+import BarAmount from "../BarAmount/BarAmount";
 import "./Bar.css";
-const Bar = ({ barHeight, y, barIndex }) => {
+const Bar = ({ barAmount, barTitle, barHeight, barIndex }) => {
 	return (
-		<rect
-			width='40'
-			height={barHeight}
-			x={barIndex * 60}
-			y={350 - barHeight}
-		></rect>
+		<g className='bar'>
+			<BarAmount barIndex={barIndex} barHeight={barHeight} text={barAmount} />
+			<BarRectangle barHeight={barHeight} barIndex={barIndex} />
+			<BarTitle barIndex={barIndex} barHeight={barHeight} text={barTitle} />
+		</g>
 	);
 };
 

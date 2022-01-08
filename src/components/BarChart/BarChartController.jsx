@@ -86,11 +86,3 @@ const BarChartController = () => {
 };
 
 export default BarChartController;
-
-// {errorMessage ? (
-// 	<ErrorMessage message={errorMessage} />
-// ) : isLoading ? (
-// 	<Spinner />
-// ) : (
-// 	<BarChart planetInformation={removeUnusedProperty(planetData)} />
-// )}
