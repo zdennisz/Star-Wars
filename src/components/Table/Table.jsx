@@ -7,7 +7,7 @@ const Table = ({ tableData }) => {
 		return null;
 	}
 	return (
-		<table>
+		<table className='table'>
 			<tbody className='table-container'>
 				<TableRow
 					rowName={"Vehicle name with the largest sum"}

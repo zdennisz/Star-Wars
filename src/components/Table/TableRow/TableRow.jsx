@@ -4,8 +4,8 @@ import { HOMEWORLD } from "./../../../util/consts";
 const TableRow = ({ rowName, rowInfo, type }) => {
 	return (
 		<tr>
-			<th>{rowName}</th>
-			<td>
+			<th className='table-row'>{rowName}</th>
+			<td className='table-row'>
 				{Array.isArray(rowInfo)
 					? rowInfo.map((rowText) => {
 							if (type === HOMEWORLD) {
