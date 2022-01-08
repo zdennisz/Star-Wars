@@ -4,9 +4,9 @@ const BarRectangle = ({ barHeight, barIndex }) => {
 	console.log("barIndex", barIndex);
 	return (
 		<rect
-			width='40'
+			width='50'
 			height={barHeight}
-			x={barIndex * 60}
+			x={barIndex * 70}
 			y={350 - barHeight}
 			className={`barRectangle-${barIndex}`}
 		></rect>

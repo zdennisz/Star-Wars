@@ -12,23 +12,26 @@ const BarChart = ({ planetInformation }) => {
 
 	// Build the Chart
 	return (
-		<svg
-			className='chart'
-			width='520'
-			height='550'
-			aria-labelledby='title desc'
-			role='img'
-		>
-			{normalizedData.map((data, index) => (
-				<Bar
-					barAmount={data.pop}
-					barTitle={data.name}
-					key={index}
-					barHeight={data.normalized}
-					barIndex={index}
-				/>
-			))}
-		</svg>
+		<div className='bar-chart-container'>
+			<svg
+				className='chart'
+				width='520'
+				height='720'
+				aria-labelledby='title desc'
+				role='img'
+				viewBox='-90 0 520 720'
+			>
+				{normalizedData.map((data, index) => (
+					<Bar
+						barAmount={data.pop}
+						barTitle={data.name}
+						key={index}
+						barHeight={data.normalized}
+						barIndex={index}
+					/>
+				))}
+			</svg>
+		</div>
 	);
 };
 
