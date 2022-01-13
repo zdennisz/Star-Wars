@@ -1,4 +1,4 @@
-# Star Wars API Challange
+# :star2: Star Wars API Challange
 The API:  https://swapi.py4e.com/ 
 
 The app was created via `React.js (hooks)` and `SASS`
