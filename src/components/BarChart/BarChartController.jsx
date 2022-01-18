@@ -29,19 +29,15 @@ const BarChartController = () => {
 					setErrorMessage(plantes.err);
 					return;
 				}
+
 				// Itertae over the results and extract the planet name and population
-				let result = {};
-				plantes.results.forEach((planet) => {
+				const planetPop = plantes.results.reduce((returnObj, planet) => {
 					if (planetData[planet.name]) {
-						result = {
-							...result,
-							[planet.name]:
-								planet.population === "unknown"
-									? 0
-									: parseInt(planet.population),
-						};
+						returnObj[planet.name] =
+							planet.population === "unknown" ? 0 : parseInt(planet.population);
 					}
-				});
+					return returnObj;
+				}, {});
 
 				// Check if we have more pages to lookup
 				if (plantes.next === null) {
@@ -52,7 +48,7 @@ const BarChartController = () => {
 				// Update the state with the latest data
 				setPlanetData((prevState) => ({
 					...prevState,
-					...result,
+					...planetPop,
 				}));
 			} catch (err) {
 				console.error(err);

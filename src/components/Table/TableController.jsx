@@ -71,13 +71,14 @@ const TableController = () => {
 	const getVehicleData = useCallback(async () => {
 		try {
 			const response = await getBulkRequest("vehicles");
-			const filteredVechicles = {};
 
-			response.forEach((vehicle) => {
+			const filteredVechicles = response.reduce((retObj, vehicle) => {
 				if (vehicle.pilots.length > 0) {
-					filteredVechicles[vehicle.name] = { pilots: vehicle.pilots };
+					retObj[vehicle.name] = { pilots: vehicle.pilots };
 				}
-			});
+				return retObj;
+			}, {});
+
 			// Once we have the vehicles we get all the pilots
 			getPilots(filteredVechicles);
 		} catch (err) {

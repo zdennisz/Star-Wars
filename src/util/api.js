@@ -32,23 +32,20 @@ export const getBulkRequest = async (param) => {
 
 export const getPilotBulkRequest = async (dataObj) => {
 	try {
-		const promiseSet = new Set();
-		const promiseArray = [];
 		let result = {};
+		const promiseMap = new Map();
 
 		for (const value of Object.values(dataObj)) {
 			value.pilots.forEach((pilot) => {
-				if (!promiseSet.has(pilot)) {
-					promiseSet.add(pilot);
-					promiseArray.push(getCustomRequest(pilot));
+				if (!promiseMap.has(pilot)) {
+					promiseMap.set(pilot, getCustomRequest(pilot));
 				}
 			});
 		}
-		let resolvedPromises = await Promise.all(promiseArray);
+		let resolvedPromises = await Promise.all(Array.from(promiseMap.values()));
 		for (let i = 0; i < resolvedPromises.length; i++) {
 			result = { ...result, [i]: resolvedPromises[i] };
 		}
-
 		return result;
 	} catch (err) {
 		console.error(err);
@@ -57,17 +54,15 @@ export const getPilotBulkRequest = async (dataObj) => {
 
 export const getHomeWorldBulkRequest = async (dataObj) => {
 	try {
-		const promiseArray = [];
-		const promiseSet = new Set();
+		const promiseMap = new Map();
 		let result = {};
 		for (const value of Object.values(dataObj)) {
-			if (!promiseSet.has(value.homeworld)) {
-				promiseSet.add(value.homeworld);
-				promiseArray.push(getCustomRequest(value.homeworld));
+			if (!promiseMap.has(value.homeworld)) {
+				promiseMap.set(value.homeworld, getCustomRequest(value.homeworld));
 			}
 		}
 
-		let resolvedPromises = await Promise.all(promiseArray);
+		let resolvedPromises = await Promise.all(Array.from(promiseMap.values()));
 		for (let i = 0; i < resolvedPromises.length; i++) {
 			const splittedAnswer = resolvedPromises[i].url.split("/");
 			const newKey = splittedAnswer[4] + splittedAnswer[5];
