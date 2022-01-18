@@ -93,12 +93,16 @@ const TableController = () => {
 
 	useEffect(() => {
 		if (vehicles) {
-			// Compute the end result for the table
+			// Go over all the vehicles and calculate which one has the pilots with the highest population of the homeworld
 			const largestSumVechicle = calculateLargestSum(vehicles);
+
+			// Get the homeplanet and the population of the pilots with the highest population
 			const homePlanetAndPop = getHomePlanetsAndPopulation(
 				vehicles[largestSumVechicle]
 			);
+			// Get the pilots names
 			const pilots = getPilotsOfHomeWorld(vehicles[largestSumVechicle]);
+
 			setTableData({
 				vehicleName: largestSumVechicle,
 				homeworld: homePlanetAndPop,
